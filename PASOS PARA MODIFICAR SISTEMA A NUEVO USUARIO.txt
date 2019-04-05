@@ -1,0 +1,42 @@
+--------------------------------------------------------------
+CAMBIAR LAS RUTAS
+--------------------------------------------------------------
+*IR A:
+	'main.rutas'
+
+**PONER LA RUTA DE LA CARPETA RAIZ EN LA VARIABLE raiz:
+	E.J.: 'public static String raiz = "C:\\Maria - Persoanl\\";'
+
+**PONER RUTA DE LOS ICONOS EN LA VARIABLE rutaIconos:
+	E.J.: 'public static String rutaIconos = "C:\\Maria - Persoanl\\Iconos\\";'
+
+--------------------------------------------------------------
+CANBIAR EL LUGAR DONDE SE HACE EL BACKUP
+--------------------------------------------------------------
+*IR A:
+	'Diseño.ventanasBases.ventanaBase'
+
+*SELECCIONAR AL EVENTO actionPerformed DEL BOTON:
+	'frameBase_botonSalir'
+
+*DENTRO DE EL actionPerformed IR AL METODO:
+	'backup()'
+
+**IR A 'CAMBIOS EXTRAS A 'PERSONAL''
+
+--------------------------------------------------------------
+CAMBIAR BASE DE DATOS A LA QUE SE CONECTARÁ
+--------------------------------------------------------------
+*IR A:
+	'DataBase.conexion'
+
+*PONER EL NOMBRE DE LA BASE DE DATOS:
+	E.J.:'"personalventafinanciera"'
+
+--------------------------------------------------------------
+CAMBIOS EXTRAS A 'PERSONAL'
+--------------------------------------------------------------
+*EN 'CANBIAR EL LUGAR DONDE SE HACE EL BACKUP', DEBAJO DE LA LINEA '
+File backupGeneral = new File(main.rutas.raiz + "dumps\\Backup.sql");', QUITAR LAS DOS REFERENCIAS DE 'FILE' QUE LE SIGUEN
+Y SOLO DEJAR ESTO:
+	'File backupGeneralUSB = new File(Logica.FileBufferWritter.readFile("rutaPrincipal.txt") + "\\Backup.sql")'

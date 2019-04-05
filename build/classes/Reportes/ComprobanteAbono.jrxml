@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comprobante" pageWidth="602" pageHeight="420" columnWidth="562" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b6919743-b5d0-415b-8a24-4f795dbd76e2">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idAbono" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idFactura" class="java.lang.String"/>
+	<parameter name="NombreNegocio" class="java.lang.String"/>
+	<parameter name="Direccion1" class="java.lang.String"/>
+	<parameter name="Direccion2" class="java.lang.String"/>
+	<parameter name="telefono1" class="java.lang.String"/>
+	<parameter name="telefono2" class="java.lang.String"/>
+	<parameter name="Rnc" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     cliente.`idCliente` AS cliente_idCliente,
+     cliente.`cedulaCliente` AS cliente_cedulaCliente,
+     cliente.`nombreCliente` AS cliente_nombreCliente,
+     cliente.`apellidoCliente` AS cliente_apellidoCliente,
+     cliente.`telefonoCliente` AS cliente_telefonoCliente,
+     cliente.`direccionCliente` AS cliente_direccionCliente,
+     facturaventacredito.`idVentaCredito` AS facturaventacredito_idVentaCredito,
+     facturaventacredito.`cliente_idCliente` AS facturaventacredito_cliente_idCliente,
+     facturaventacredito.`fechaFactura` AS facturaventacredito_fechaFactura,
+     abonoapago.`id` AS abonoapago_id,
+     abonoapago.`ventaCredito_idVentaCredito` AS abonoapago_ventaCredito_idVentaCredito,
+     abonoapago.`fechaAbono` AS abonoapago_fechaAbono,
+     abonoapago.`montoAbonado` AS abonoapago_montoAbonado,
+((select sum(montoAbonado) from abonoapago where ventaCredito_idVentaCredito = $P!{idFactura})  - abonoapago.`montoAbonado`) as abonoAnterior
+FROM
+     `cliente` cliente INNER JOIN `facturaventacredito` facturaventacredito ON cliente.`idCliente` = facturaventacredito.`cliente_idCliente`
+     INNER JOIN `abonoapago` abonoapago ON facturaventacredito.`idVentaCredito` = abonoapago.`ventaCredito_idVentaCredito`
+WHERE
+     abonoapago.id = $P!{idAbono}]]>
+	</queryString>
+	<field name="cliente_idCliente" class="java.lang.Integer"/>
+	<field name="cliente_cedulaCliente" class="java.math.BigInteger"/>
+	<field name="cliente_nombreCliente" class="java.lang.String"/>
+	<field name="cliente_apellidoCliente" class="java.lang.String"/>
+	<field name="cliente_telefonoCliente" class="java.lang.String"/>
+	<field name="cliente_direccionCliente" class="java.lang.String"/>
+	<field name="facturaventacredito_idVentaCredito" class="java.lang.Integer"/>
+	<field name="facturaventacredito_cliente_idCliente" class="java.lang.Integer"/>
+	<field name="facturaventacredito_fechaFactura" class="java.sql.Date"/>
+	<field name="abonoapago_id" class="java.lang.Integer"/>
+	<field name="abonoapago_ventaCredito_idVentaCredito" class="java.lang.Integer"/>
+	<field name="abonoapago_fechaAbono" class="java.sql.Date"/>
+	<field name="abonoapago_montoAbonado" class="java.lang.Integer"/>
+	<field name="abonoAnterior" class="java.math.BigDecimal"/>
+	<variable name="total_1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<title>
+		<band height="180" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-19" y="-20" width="600" height="99" backcolor="#FFFFFF" uuid="8ec8afe2-1e6f-4702-833d-1f342229edd2"/>
+			</rectangle>
+			<textField>
+				<reportElement x="-19" y="-20" width="501" height="41" uuid="5bf2dfba-7ed1-4a17-b98d-cce3ff6e3400"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NombreNegocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-19" y="10" width="501" height="20" uuid="d0047b8b-6f6d-43a3-a7b0-518afe04adba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Direccion1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-19" y="21" width="501" height="20" uuid="7b2abf47-fea0-4cb9-8ac6-c461341130b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Direccion2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-19" y="30" width="501" height="20" uuid="bd5c84e6-95bc-476e-bcfe-19939776fe3e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{telefono1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-19" y="39" width="501" height="20" uuid="59bfb630-6b21-43ad-9f7c-6b7476c49a22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{telefono2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-19" y="59" width="121" height="20" uuid="aa3aa1e7-a2cb-4182-b51a-2576351b7947"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Rnc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="59" width="195" height="20" uuid="0e135fd1-2942-45a5-bef1-f27fdfc0b00c"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ -Comprobante de ABONO-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="140" width="63" height="20" uuid="f2169b27-23a7-43d8-a2d4-26d0a876cf01"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TELEFONO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="55" height="20" uuid="02db0c10-cbca-4caa-96b4-1e6f830b6614"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CEDULA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="55" height="20" uuid="8fc3f368-a7b0-4e83-82e3-7a398fdbec72"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="160" width="63" height="20" uuid="c0905f2e-60dc-4fcf-b423-d1f7ace1a102"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIRECCION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="50" height="20" uuid="141cfd0b-dfc1-4397-b96d-650cbfe4bc1b"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="10" width="44" height="20" uuid="251b7adb-ba2e-485d-871e-623c05046429"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="482" y="-10" width="44" height="20" uuid="572d8e95-1408-44cd-bf1c-9faeb0cbe026"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro.:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="63" y="140" width="100" height="20" uuid="fd000a93-d1a9-45f8-aa52-f27aad8d0021"/>
+				<textFieldExpression><![CDATA[$F{cliente_telefonoCliente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="316" y="80" width="50" height="20" uuid="c5c83ad1-d2c9-411d-9ef1-de2903330631"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Recivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="100" width="26" height="20" uuid="89288b46-dec3-4077-95ac-b23c36cb69b2"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="120" width="40" height="20" uuid="00539737-a3f9-4201-924d-c039d564798f"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="63" y="120" width="100" height="20" uuid="42e48b46-3fba-4c10-89ab-bdfb1948004d"/>
+				<textFieldExpression><![CDATA[$F{cliente_cedulaCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="100" width="128" height="20" uuid="d82fddbc-0a12-43c4-8b62-2033840ffe72"/>
+				<textFieldExpression><![CDATA[$F{cliente_nombreCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="191" y="100" width="125" height="20" uuid="213ed72c-a941-40ed-a661-a319c0d9b12f"/>
+				<textFieldExpression><![CDATA[$F{cliente_apellidoCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="160" width="496" height="20" uuid="be3b42c7-32b6-41d5-afbe-7f99b0d78f40"/>
+				<textFieldExpression><![CDATA[$F{cliente_direccionCliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="100" width="100" height="20" uuid="2b776d35-cc8f-4b0b-a7a2-768c4990e4dc"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facturaventacredito_idVentaCredito}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="356" y="120" width="28" height="20" uuid="33e1a95b-bd24-4cde-b4d0-65383111e4a8"/>
+				<textFieldExpression><![CDATA[$F{facturaventacredito_fechaFactura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="526" y="-10" width="49" height="20" uuid="bde5fdd7-7539-475d-96af-5f225e97912e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{abonoapago_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="526" y="10" width="36" height="20" uuid="61e33116-454e-4dfe-9783-4924f3b7e9fd"/>
+				<textFieldExpression><![CDATA[$F{abonoapago_fechaAbono}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="101" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="562" height="1" uuid="6c678bbc-0965-49fa-ab13-baf1aa559bba"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="1" width="50" height="20" uuid="fefc10a4-a22c-4414-a4dd-6640a3476b73"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Abono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="21" width="102" height="20" uuid="579c385d-a5ad-4f9f-9b25-5647a067ddaa"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad Abonada:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="100" width="560" height="1" uuid="ddd7d050-1272-406b-940a-2044df480314"/>
+			</line>
+			<textField>
+				<reportElement x="102" y="21" width="100" height="20" uuid="963b85fc-2de3-4380-8a8d-220d2c7195c1"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{abonoapago_montoAbonado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="26" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

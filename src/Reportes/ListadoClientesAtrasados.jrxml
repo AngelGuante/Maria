@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="18bcdc71-7db9-416c-84ea-0f0080f1e0bd">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="nombres" uuid="380d3668-220d-41ed-9ecf-0f8deb93221b">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="meses" uuid="c0ca8d2c-921e-42fc-ba4a-4da69b167014">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dias" uuid="3cffc1eb-02c4-44b9-81cc-fad88388441f">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="montos" uuid="155cc587-6ba1-4cf9-a950-2e1ce688d0a6">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="recivos" uuid="1bedfbcf-b4f5-4343-973a-b043067e2d7f">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="cuotas" uuid="75a74456-8326-4af6-8e5c-e27f683b6200">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="total" uuid="4a83cf21-897c-4a49-84e9-18943fc5203e">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="nombreClientes" class="java.util.List">
+		<defaultValueExpression><![CDATA[$P{nombreClientes}.add( "HOLA" )]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mesAtrasos" class="java.util.List"/>
+	<parameter name="diasAtrasos" class="java.util.List"/>
+	<parameter name="montoAtraso" class="java.util.List"/>
+	<parameter name="recivos" class="java.util.List"/>
+	<parameter name="cuotasRecivo" class="java.util.List"/>
+	<parameter name="total" class="java.util.List"/>
+	<parameter name="NombreNegocio" class="java.lang.String"/>
+	<parameter name="Direccion1" class="java.lang.String"/>
+	<parameter name="Direccion2" class="java.lang.String"/>
+	<parameter name="telefono1" class="java.lang.String"/>
+	<parameter name="telefono2" class="java.lang.String"/>
+	<parameter name="Rnc" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-23" y="-21" width="600" height="99" backcolor="#FFFFFF" uuid="c986c158-9817-4efe-9dea-08b37ccce649"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="351" y="50" width="224" height="20" uuid="63aaa6f9-1acb-4e15-9929-b5f9fd29ef92"/>
+				<textElement textAlignment="Right">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ - Listado Clientes Atrasados -]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="471" y="15" width="64" height="20" uuid="214e233a-56f8-4a31-83b1-d8804bc86bb9"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="535" y="15" width="40" height="20" uuid="47cea079-0b75-45de-b47d-8d20fba2c4db"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="471" y="-5" width="30" height="20" uuid="ea7a7fa0-b2b7-4b46-b1be-4d140fb75332"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="501" y="-5" width="74" height="20" uuid="6eea4edb-12cb-41a0-b582-a56dc87869f8"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-23" y="-21" width="501" height="41" uuid="873f273b-0bd4-4a29-8035-4bd18d09052a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NombreNegocio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-23" y="9" width="501" height="20" uuid="e1c52089-e6aa-4741-8cba-8bae28f263fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Direccion1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-23" y="20" width="501" height="20" uuid="9f82eb81-b5df-47a1-beed-c7cea616b5e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{Direccion2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-23" y="29" width="501" height="20" uuid="6f12d728-553d-4882-acf8-2a493e39815a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{telefono1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-23" y="38" width="501" height="20" uuid="e201670b-0e69-4c74-bf1c-b4dabadbaf20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{telefono2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-23" y="58" width="121" height="20" uuid="62cb2eb9-7905-453d-8fb8-e4152c525581"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Rnc}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="410" y="0" width="61" height="20" uuid="b4c20c9a-f281-41b9-bd0f-d40240f3d591"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MORAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="32" height="20" uuid="9bbe208a-8342-41ee-a962-b03166e01d36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MESES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="0" width="42" height="20" uuid="e8172696-5f7e-45f2-b425-efddd3f43aa9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECIVO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="0" width="100" height="20" uuid="7fd32821-a7c5-4045-b49d-677cce25a93f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="0" width="25" height="20" uuid="77adc6c7-f698-48f4-b2e1-ed968b3a3c3b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="33" height="20" uuid="4ae5584d-5830-43f7-b024-736bb73b6415"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Listo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="471" y="0" width="81" height="20" uuid="9ef1b8fc-9371-441c-b7b9-d59183cf5f93"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="0" width="75" height="20" uuid="ccacf18a-a425-46cf-bd40-0a23e8e9f671"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUOTAS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="66" splitType="Stretch">
+			<componentElement>
+				<reportElement mode="Opaque" x="0" y="3" width="239" height="23" backcolor="#FFFFFF" uuid="eafdf73b-a5b0-4807-b54a-a060692c1676"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="nombres" uuid="cde8e4b7-220b-4079-a4ae-ab5cc0115ffe">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{nombreClientes})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="23" width="239">
+						<textField>
+							<reportElement x="33" y="0" width="206" height="20" uuid="1fee0db8-75d4-4b1a-b6d4-53d0825bfba7"/>
+							<textElement>
+								<font isUnderline="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+						<rectangle radius="0">
+							<reportElement x="10" y="2" width="16" height="16" uuid="a1192442-e496-4799-80a2-51d54c8c721f"/>
+						</rectangle>
+						<line>
+							<reportElement x="0" y="22" width="239" height="1" uuid="15ce385b-a7c9-4cab-a0ef-7e4074d115f0"/>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<componentElement>
+				<reportElement mode="Opaque" x="278" y="3" width="32" height="23" backcolor="#FFFFFF" uuid="a680774f-4c9a-4a26-8787-f1ea42bbe4fc"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="meses" uuid="415011a3-de44-4a5f-836b-6d11c0c5f076">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{mesAtrasos})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="23" width="32">
+						<textField>
+							<reportElement x="0" y="0" width="32" height="20" uuid="de1e4251-9d43-446d-8ec8-3cdf6f0872f6"/>
+							<textElement textAlignment="Center">
+								<font isUnderline="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+						<line>
+							<reportElement x="0" y="22" width="32" height="1" uuid="4b38b430-4371-4d4d-b8fd-4c0bec66a800"/>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<componentElement>
+				<reportElement mode="Opaque" x="310" y="3" width="25" height="23" backcolor="#FFFFFF" uuid="0d028f41-fdff-4d8c-89f9-7ed56f7b9b58"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dias" uuid="7e92542c-504d-4132-b15a-7c04b71e7e35">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{diasAtrasos})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="23" width="25">
+						<textField>
+							<reportElement x="0" y="0" width="25" height="20" uuid="74b22118-8d89-4ce5-be4a-ec98a86fb99a"/>
+							<textElement textAlignment="Center">
+								<font isUnderline="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+						<line>
+							<reportElement x="0" y="22" width="25" height="1" uuid="e8e69c2f-7e44-4fc6-b6a8-68d374ab3e19"/>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<componentElement>
+				<reportElement mode="Opaque" x="236" y="3" width="42" height="23" backcolor="#FFFFFF" uuid="8ff29be7-8b59-4905-93b1-e6c57f2d14eb"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="recivos" uuid="e1067541-021d-4aa1-97c8-62402d194cd0">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{recivos})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="23" width="42">
+						<textField>
+							<reportElement x="0" y="0" width="42" height="20" uuid="250acd5f-944c-4dbe-9269-829a95f40c1f"/>
+							<textElement textAlignment="Center">
+								<font isUnderline="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+						<line>
+							<reportElement x="0" y="22" width="42" height="1" uuid="b6cb056e-9e49-4cb5-8ff1-bbfdbe5c0930"/>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<componentElement>
+				<reportElement x="335" y="3" width="75" height="23" uuid="643a6d8a-2967-411d-9532-f7a2a4825f2e"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="cuotas" uuid="9f013854-d547-41b5-a6f3-7874ac9d7dc4">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{cuotasRecivo})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="23" width="75">
+						<line>
+							<reportElement x="0" y="22" width="75" height="1" uuid="969830d8-3fc6-4704-8205-10d3aa3db437"/>
+						</line>
+						<textField>
+							<reportElement x="0" y="0" width="75" height="20" uuid="df7086ec-73e8-4697-8a3a-242f5f91a22f"/>
+							<textElement textAlignment="Center"/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<componentElement>
+				<reportElement mode="Opaque" x="410" y="3" width="61" height="23" backcolor="#FFFFFF" uuid="79973842-8c05-4e9a-bd7d-f6cc67d6cfe9"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="montos" uuid="87f72c50-c6ec-4d3b-b8e2-40782ab8bb6c">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{montoAtraso})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="23" width="61">
+						<textField>
+							<reportElement x="0" y="0" width="61" height="20" uuid="dba9b1df-3113-44ad-9882-5ba4fa472d5d"/>
+							<textElement textAlignment="Center">
+								<font isUnderline="false"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+						<line>
+							<reportElement x="0" y="22" width="61" height="1" uuid="b1e56990-2120-49a3-9431-6a99f7e6eec9"/>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<componentElement>
+				<reportElement x="471" y="3" width="81" height="23" uuid="2c00d126-4230-4246-a612-66094c2e76f1"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="total" uuid="eaf2e1b9-b3d5-44eb-835b-3a62817a01e3">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{total})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="23" width="81">
+						<textField>
+							<reportElement x="0" y="0" width="77" height="20" uuid="4def9d6e-a091-4d6e-8c97-f77f3e59e10d"/>
+							<textElement textAlignment="Center"/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+						<line>
+							<reportElement x="0" y="22" width="77" height="1" uuid="918b0fb9-fc1c-4105-8943-277e3424b665"/>
+						</line>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="0e4d6373-58fa-4ad1-bb8c-c83cc512da70"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
