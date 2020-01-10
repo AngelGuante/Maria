@@ -3,6 +3,7 @@ package Diseño.Facturacion.paneles_pantallaPrincipal;
 import Logica.CamposTexto.Campo_limiteDigitosCampo;
 import Logica.CamposTexto.Campo_tipoNumero;
 import java.awt.Color;
+import java.sql.SQLException;
 
 public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_CompraVenta {
 
@@ -17,6 +18,8 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
     //articulo tener un control de cual monto restar.
     private java.util.ArrayList<Integer> costosTMP = new java.util.ArrayList<>();
     private java.util.ArrayList<Integer> cantidadTMP = new java.util.ArrayList<>();
+
+    private String NCF = "";
 
     public panel_ventas() {
         initComponents();
@@ -68,7 +71,9 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         panelBaseCompraVenta_botonGuardarImprimir = new javax.swing.JButton();
         panelBaseCompraVenta_botonHistorial = new javax.swing.JButton();
         panelVenta_textFieldCodigoProducto = new javax.swing.JTextField();
+        panelVenta_botonFactuarConComprobante = new javax.swing.JToggleButton();
         jLabel1 = new javax.swing.JLabel();
+        label_totalConImpuestos = new javax.swing.JLabel();
 
         panelVenta_textFieldQuickCliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         panelVenta_textFieldQuickCliente.setForeground(new java.awt.Color(0, 102, 204));
@@ -97,7 +102,7 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
             }
         });
         add(panelVentas_toggle_guardarCliente);
-        panelVentas_toggle_guardarCliente.setBounds(450, 57, 160, 23);
+        panelVentas_toggle_guardarCliente.setBounds(450, 52, 160, 28);
 
         panelVenta_groupTipo.add(panelVenta_radioContado);
         panelVenta_radioContado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -109,7 +114,7 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
             }
         });
         add(panelVenta_radioContado);
-        panelVenta_radioContado.setBounds(790, 84, 86, 23);
+        panelVenta_radioContado.setBounds(790, 84, 86, 18);
 
         panelVenta_groupTipo.add(panelVenta_radioCredito);
         panelVenta_radioCredito.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -120,7 +125,7 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
             }
         });
         add(panelVenta_radioCredito);
-        panelVenta_radioCredito.setBounds(790, 104, 86, 23);
+        panelVenta_radioCredito.setBounds(790, 104, 86, 18);
 
         panelVenta_textFieldCodigo.setEditable(false);
         panelVenta_textFieldCodigo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -267,12 +272,12 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         panelVenta_checkBoxPendiente.setText("Pendiente");
         panelVenta_checkBoxPendiente.setEnabled(false);
         add(panelVenta_checkBoxPendiente);
-        panelVenta_checkBoxPendiente.setBounds(450, 50, 80, 23);
+        panelVenta_checkBoxPendiente.setBounds(450, 50, 80, 18);
 
         panelVenta_checkBoxEnvargado.setText("Envargado");
         panelVenta_checkBoxEnvargado.setEnabled(false);
         add(panelVenta_checkBoxEnvargado);
-        panelVenta_checkBoxEnvargado.setBounds(530, 50, 81, 23);
+        panelVenta_checkBoxEnvargado.setBounds(530, 50, 81, 18);
 
         panelVenta_textFieldSumatoriaDeCostos.setEditable(false);
         panelVenta_textFieldSumatoriaDeCostos.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -321,7 +326,7 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
             }
         });
         add(paneVenta_botonEliminarFilaSeleccionada);
-        paneVenta_botonEliminarFilaSeleccionada.setBounds(650, 150, 230, 25);
+        paneVenta_botonEliminarFilaSeleccionada.setBounds(650, 150, 230, 28);
 
         panelVenta_textFieldCantidad.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         panelVenta_textFieldCantidad.setForeground(new java.awt.Color(0, 153, 204));
@@ -385,8 +390,24 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         });
         add(panelVenta_textFieldCodigoProducto);
         panelVenta_textFieldCodigoProducto.setBounds(10, 90, 630, 40);
+
+        panelVenta_botonFactuarConComprobante.setBackground(new java.awt.Color(255, 153, 153));
+        panelVenta_botonFactuarConComprobante.setText("FACTURA SIN COMPROBANTE FISCAL");
+        panelVenta_botonFactuarConComprobante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                panelVenta_botonFactuarConComprobanteActionPerformed(evt);
+            }
+        });
+        add(panelVenta_botonFactuarConComprobante);
+        panelVenta_botonFactuarConComprobante.setBounds(345, 130, 290, 28);
         add(jLabel1);
         jLabel1.setBounds(0, -10, 890, 490);
+
+        label_totalConImpuestos.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
+        label_totalConImpuestos.setForeground(new java.awt.Color(255, 51, 51));
+        label_totalConImpuestos.setText("+ 18% = 0");
+        add(label_totalConImpuestos);
+        label_totalConImpuestos.setBounds(220, 336, 660, 29);
     }// </editor-fold>//GEN-END:initComponents
 
     //Evento para el campo de cliente, verifica que el patron sea correcto,
@@ -404,6 +425,12 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         panelVenta_textFieldQuickCliente.setVisible(false);
         panelVentas_toggle_guardarCliente.setVisible(false);
         panelVenta_textFieldCliente.setVisible(true);
+        label_totalConImpuestos.setVisible(false);
+        PonerValorProductoFacturaConComprobanteFiscal();
+        panelVenta_botonFactuarConComprobante.setVisible(false);
+        panelVenta_botonFactuarConComprobante.setSelected(true);
+        panelVenta_botonFactuarConComprobante.setText("FACTURA SIN COMPROBANTE FISCAL");
+        panelVenta_botonFactuarConComprobante.setBackground(new java.awt.Color(204, 204, 204));
         setNumeroFacturaCredito();
     }//GEN-LAST:event_panelVenta_radioCreditoActionPerformed
 
@@ -417,89 +444,19 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         setNumeroFactura();
     }//GEN-LAST:event_panelVenta_radioContadoActionPerformed
 
-    private void panelVentaPanelDatosVentaCredito_textFieldInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldInicialActionPerformed
-        panelVentaPanelDatosVentaCredito_textFieldPorciento.requestFocus();
-    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldInicialActionPerformed
-
-    //Evento para el campo 'Porciento', busca el porciento en el campo 'monto' y se lo asigna al campo 'monto'.
-    private void panelVentaPanelDatosVentaCredito_textFieldPorcientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoActionPerformed
-        aplicarPorcientoDefinitivo();
-        enterPrecionado = true;
-    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoActionPerformed
-
-    private void panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasActionPerformed
-        panelVentaPanelDatosVentaCredito_textFieldCuotas.requestFocus();
-    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasActionPerformed
-
-
-    private void panelVentaPanelDatosVentaCredito_textFieldMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldMontoActionPerformed
-        cambiarColoresTextFieldsYVariablesPorDefecto();
-        panelVentaPanelDatosVentaCredito_textFieldInicial.requestFocus();
-    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldMontoActionPerformed
-
-    private void panelVentaPanelDatosVentaCredito_textFieldInicialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldInicialKeyReleased
-        if (panelVentaPanelDatosVentaCredito_textFieldInicial.getText().length() > 0) {
-            if (Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldInicial.getText())
-                    < Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText())) {
-                //Casteo de los campos de texto a int luego a string nuevamente para ponerse el resultado en 'monto'.
-                panelVentaPanelDatosVentaCredito_textFieldMonto.setText(
-                        Integer.toString(Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText())
-                                - Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldInicial.getText())));
-                totalTmp = panelVentaPanelDatosVentaCredito_textFieldMonto.getText();
-                //Cambiar el color de fondo a verde para que el usuario vea que su cambio surgio efecto.
-                panelVentaPanelDatosVentaCredito_textFieldInicial.setBackground(new Color(153, 255, 153));
-            } else {
-                Logica.Cuadros_Emergentes.alerta("El inicial no puede ser mayor o igual al Monto a pagar");
-                panelVentaPanelDatosVentaCredito_textFieldInicial.setText(Integer.toString(
-                        Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText()) - 1));
-            }
-        }
-    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldInicialKeyReleased
-
-    private void panelVentaPanelDatosVentaCredito_textFieldPorcientoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoKeyReleased
-        if (panelVentaPanelDatosVentaCredito_textFieldPorciento.getText().length() > 0) {
-            //Proceso de calcular el porciento.
-            int porciento = (Integer.parseInt(totalTmp)
-                    * Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldPorciento.getText())) / 100;
-            //Le sumo al campo 'monto' la multiplicacion del porciento entre 100.
-            panelVentaPanelDatosVentaCredito_textFieldMonto.setText(Integer.toString(
-                    Integer.parseInt(totalTmp) + porciento));
-            //Cambiar el color de fondo a verde para que el usuario vea que su cambio surgio efecto.
-            panelVentaPanelDatosVentaCredito_textFieldPorciento.setBackground(new Color(153, 255, 153));
-        }
-    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoKeyReleased
-
-    private void panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasKeyReleased
-        if (panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.getText().length() > 0) {
-            panelVentaPanelDatosVentaCredito_textFieldCuotas.setText(Integer.toString(Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldMonto.getText()) / Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.getText())));
-
-            panelVentaPanelDatosVentaCredito_textFieldGananciaPagos.setText(
-                    Integer.toString((Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText())
-                            - Integer.parseInt(panelVenta_textFieldSumatoriaDeCostos.getText()))
-                            / Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.getText())));
-            //Cambiar el color de fondo a verde para que el usuario vea que su cambio surgio efecto.
-            panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.setBackground(new Color(153, 255, 153));
-            panelVentaPanelDatosVentaCredito_textFieldGananciaPagos.setBackground(new Color(153, 255, 153));
-            panelVentaPanelDatosVentaCredito_textFieldCuotas.setBackground(new Color(153, 255, 153));
-        }
-    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasKeyReleased
-
-    private void panelVentaPanelDatosVentaCredito_textFieldPorcientoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoFocusLost
-        if (!enterPrecionado) {
-            aplicarPorcientoDefinitivo();
-        } else {
-            enterPrecionado = false;
-        }
-    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoFocusLost
 
     private void panelVenta_botonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVenta_botonClientesActionPerformed
         eventoBotonClienteDistribuidor();
     }//GEN-LAST:event_panelVenta_botonClientesActionPerformed
 
     private void panelVenta_botonGuardarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVenta_botonGuardarFacturaActionPerformed
-        if (Evento_procesosRealizarFactura()) {
+        if (Evento_procesosRealizarFactura(panelVenta_textFieldCodigo.getText())) {
             Logica.gestiosDineroCaja.agregarMontos(
-                    panelBaseCompraVenta_textFieldTotal.getText(),
+                    panelVenta_radioCredito.isSelected()
+                ? panelVentaPanelDatosVentaCredito_textFieldInicial.getText()
+                : (!panelVenta_botonFactuarConComprobante.isSelected() && !panelVentas_toggle_guardarCliente.isSelected())
+                        ? PonerValorProductoFacturaConComprobanteFiscal() + ""
+                        : panelBaseCompraVenta_textFieldTotal.getText(),
                     true,
                     panelBaseCompraVenta_textFieldFecha.getText());
             reestablecerElementosSuperioresVentana();
@@ -522,6 +479,8 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
                 Integer.toString(
                         Integer.parseInt(
                                 panelBaseCompraVenta_textFieldTotal.getText())));
+
+        PonerValorProductoFacturaConComprobanteFiscal();
     }//GEN-LAST:event_paneVenta_botonEliminarFilaSeleccionadaActionPerformed
 
     private void panelVenta_textFieldCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVenta_textFieldCantidadActionPerformed
@@ -541,28 +500,17 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         }
     }//GEN-LAST:event_panelVenta_textFieldPrecioActionPerformed
 
-    private void panelVentaPanelDatosVentaCredito_ButtonReestablecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_ButtonReestablecerActionPerformed
-        if (Logica.Cuadros_Emergentes.confirmacion() == 0) {
-            limpiarDatosFacturaVentaCredito(false);
-            int total = 0;
-            for (int i = 0; i < model.getRowCount(); i++) {
-                total += (Integer) herencia_model.getValueAt(i, 4);
-            }
-            panelBaseCompraVenta_textFieldTotal.setText(Integer.toString(total));
-            panelVentaPanelDatosVentaCredito_textFieldMonto.setText(Integer.toString(total));
-        }
-    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_ButtonReestablecerActionPerformed
-
     private void panelBaseCompraVenta_botonGuardarImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelBaseCompraVenta_botonGuardarImprimirActionPerformed
         //Almacenar el id de la factura que se va a imprimir
         String idFactura = panelVenta_textFieldCodigo.getText();
         //Proceso de agregar la factura a la base de datos
-        Evento_procesosRealizarFactura();
+        Evento_procesosRealizarFactura(idFactura);
         //Verificar si la factura es a credito o al contado para imprimir el correcto
         String clienteNoGuardado = panelVenta_textFieldQuickCliente
                 .getText();
         java.util.Map<String, Object> parametros = new java.util.HashMap<>();
         parametros.put("idFactura", idFactura);
+        parametros.put("NCF", "NCF: B0" + NCF);
         parametros.put("clienteNoGuardado", clienteNoGuardado.equals("CLIENTE")
                 ? "" : clienteNoGuardado);
         Logica.Reportes.Reporte_generarConDB.ReportesConDB(
@@ -645,16 +593,126 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
             panelVentas_toggle_guardarCliente.setText("No Guardar Cliente");
             panelVenta_textFieldQuickCliente.setVisible(true);
             panelVenta_textFieldCliente.setVisible(false);
+            label_totalConImpuestos.setVisible(false);
+            panelVenta_botonFactuarConComprobante.setVisible(false);
+            panelVenta_botonFactuarConComprobante.setSelected(false);
+            panelVenta_botonFactuarConComprobante.setText("FACTURA CON COMPROBANTE FISCAL");
+            panelVenta_botonFactuarConComprobante.setBackground(new java.awt.Color(255, 153, 153));
+
         } else {
             panelVentas_toggle_guardarCliente.setText("Guardar Cliente");
             panelVenta_textFieldQuickCliente.setVisible(false);
             panelVenta_textFieldCliente.setVisible(true);
+            panelVenta_botonFactuarConComprobante.setVisible(true);
+            panelVenta_botonFactuarConComprobante.setSelected(true);
+            panelVenta_botonFactuarConComprobante.setText("FACTURA SIN COMPROBANTE FISCAL");
+            panelVenta_botonFactuarConComprobante.setBackground(new java.awt.Color(204, 204, 204));
             panelVenta_textFieldQuickCliente.setText("CLIENTE");
         }
     }//GEN-LAST:event_panelVentas_toggle_guardarClienteActionPerformed
 
+    private void panelVenta_botonFactuarConComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVenta_botonFactuarConComprobanteActionPerformed
+        if (panelVenta_botonFactuarConComprobante.isSelected()) {
+            label_totalConImpuestos.setVisible(false);
+            panelVenta_botonFactuarConComprobante.setText("FACTURA SIN COMPROBANTE FISCAL");
+            panelVenta_botonFactuarConComprobante.setBackground(new java.awt.Color(204, 204, 204));
+        } else {
+            PonerValorProductoFacturaConComprobanteFiscal();
+            label_totalConImpuestos.setVisible(true);
+            panelVenta_botonFactuarConComprobante.setText("FACTURA CON COMPROBANTE FISCAL");
+            panelVenta_botonFactuarConComprobante.setBackground(new java.awt.Color(255, 153, 153));
+        }
+    }//GEN-LAST:event_panelVenta_botonFactuarConComprobanteActionPerformed
+
+    private void panelVentaPanelDatosVentaCredito_ButtonReestablecerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_ButtonReestablecerActionPerformed
+        if (Logica.Cuadros_Emergentes.confirmacion() == 0) {
+            limpiarDatosFacturaVentaCredito(false);
+            int total = 0;
+            for (int i = 0; i < model.getRowCount(); i++) {
+                total += (Integer) herencia_model.getValueAt(i, 4);
+            }
+            panelBaseCompraVenta_textFieldTotal.setText(Integer.toString(total));
+            panelVentaPanelDatosVentaCredito_textFieldMonto.setText(Integer.toString(total));
+        }
+    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_ButtonReestablecerActionPerformed
+
+    private void panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasKeyReleased
+        if (panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.getText().length() > 0) {
+            panelVentaPanelDatosVentaCredito_textFieldCuotas.setText(Integer.toString(Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldMonto.getText()) / Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.getText())));
+
+            panelVentaPanelDatosVentaCredito_textFieldGananciaPagos.setText(
+                    Integer.toString((Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText())
+                            - Integer.parseInt(panelVenta_textFieldSumatoriaDeCostos.getText()))
+                            / Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.getText())));
+            //Cambiar el color de fondo a verde para que el usuario vea que su cambio surgio efecto.
+            panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.setBackground(new Color(153, 255, 153));
+            panelVentaPanelDatosVentaCredito_textFieldGananciaPagos.setBackground(new Color(153, 255, 153));
+            panelVentaPanelDatosVentaCredito_textFieldCuotas.setBackground(new Color(153, 255, 153));
+        }
+    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasKeyReleased
+
+    private void panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasActionPerformed
+        panelVentaPanelDatosVentaCredito_textFieldCuotas.requestFocus();
+    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotasActionPerformed
+
+    private void panelVentaPanelDatosVentaCredito_textFieldPorcientoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoKeyReleased
+        if (panelVentaPanelDatosVentaCredito_textFieldPorciento.getText().length() > 0) {
+            //Proceso de calcular el porciento.
+            int porciento = (Integer.parseInt(totalTmp)
+                    * Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldPorciento.getText())) / 100;
+            //Le sumo al campo 'monto' la multiplicacion del porciento entre 100.
+            panelVentaPanelDatosVentaCredito_textFieldMonto.setText(Integer.toString(
+                    Integer.parseInt(totalTmp) + porciento));
+            //Cambiar el color de fondo a verde para que el usuario vea que su cambio surgio efecto.
+            panelVentaPanelDatosVentaCredito_textFieldPorciento.setBackground(new Color(153, 255, 153));
+        }
+    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoKeyReleased
+
+    //Evento para el campo 'Porciento', busca el porciento en el campo 'monto' y se lo asigna al campo 'monto'.
+    private void panelVentaPanelDatosVentaCredito_textFieldPorcientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoActionPerformed
+        aplicarPorcientoDefinitivo();
+        enterPrecionado = true;
+    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoActionPerformed
+
+    private void panelVentaPanelDatosVentaCredito_textFieldPorcientoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoFocusLost
+        if (!enterPrecionado) {
+            aplicarPorcientoDefinitivo();
+        } else {
+            enterPrecionado = false;
+        }
+    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldPorcientoFocusLost
+
+    private void panelVentaPanelDatosVentaCredito_textFieldInicialKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldInicialKeyReleased
+        if (panelVentaPanelDatosVentaCredito_textFieldInicial.getText().length() > 0) {
+            if (Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldInicial.getText())
+                    < Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText())) {
+                //Casteo de los campos de texto a int luego a string nuevamente para ponerse el resultado en 'monto'.
+                panelVentaPanelDatosVentaCredito_textFieldMonto.setText(
+                        Integer.toString(Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText())
+                                - Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldInicial.getText())));
+                totalTmp = panelVentaPanelDatosVentaCredito_textFieldMonto.getText();
+                //Cambiar el color de fondo a verde para que el usuario vea que su cambio surgio efecto.
+                panelVentaPanelDatosVentaCredito_textFieldInicial.setBackground(new Color(153, 255, 153));
+            } else {
+                Logica.Cuadros_Emergentes.alerta("El inicial no puede ser mayor o igual al Monto a pagar");
+                panelVentaPanelDatosVentaCredito_textFieldInicial.setText(Integer.toString(
+                        Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText()) - 1));
+            }
+        }
+    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldInicialKeyReleased
+
+    private void panelVentaPanelDatosVentaCredito_textFieldInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldInicialActionPerformed
+        panelVentaPanelDatosVentaCredito_textFieldPorciento.requestFocus();
+    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldInicialActionPerformed
+
+    private void panelVentaPanelDatosVentaCredito_textFieldMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelVentaPanelDatosVentaCredito_textFieldMontoActionPerformed
+        cambiarColoresTextFieldsYVariablesPorDefecto();
+        panelVentaPanelDatosVentaCredito_textFieldInicial.requestFocus();
+    }//GEN-LAST:event_panelVentaPanelDatosVentaCredito_textFieldMontoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel label_totalConImpuestos;
     protected javax.swing.JButton paneVenta_botonEliminarFilaSeleccionada;
     protected javax.swing.JButton panelBaseCompraVenta_botonGuardarImprimir;
     protected javax.swing.JButton panelBaseCompraVenta_botonHistorial;
@@ -672,6 +730,7 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
     public static javax.swing.JTextField panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas;
     public static javax.swing.JTextField panelVentaPanelDatosVentaCredito_textFieldPorciento;
     private javax.swing.JButton panelVenta_botonClientes;
+    private javax.swing.JToggleButton panelVenta_botonFactuarConComprobante;
     protected javax.swing.JButton panelVenta_botonGuardarFactura;
     private javax.swing.JCheckBox panelVenta_checkBoxEnvargado;
     public static javax.swing.JCheckBox panelVenta_checkBoxPendiente;
@@ -721,6 +780,8 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         panelVenta_panelDatosVentaCredito.setVisible(false);
         panelVenta_checkBoxEnvargado.setVisible(false);
         panelVenta_checkBoxPendiente.setVisible(false);
+        panelVenta_botonFactuarConComprobante.setVisible(false);
+        label_totalConImpuestos.setVisible(false);
 
         panelVentas_toggle_guardarCliente.setSelected(
                 Boolean.parseBoolean(Logica.FileBufferWritter.readFile(
@@ -755,6 +816,9 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         //LABELS
         panelBaseCompraVenta_labelVentaCompra.setText(panelBaseCompraVenta_labelVentaCompra.getText() + "VENTA");
 
+        panelVenta_botonFactuarConComprobante.setSelected(true);
+        panelVenta_botonFactuarConComprobante.setText("FACTURA SIN COMPROBANTE FISCAL");
+        panelVenta_botonFactuarConComprobante.setBackground(new java.awt.Color(204, 204, 204));
         setNumeroFactura();
     }
 
@@ -770,6 +834,9 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
                 Integer.parseInt(panelVenta_textFieldSumatoriaDeCostos.getText())
                 + (costoYCantidadProducto[0] * costoYCantidadProducto[1])
         ));
+
+        PonerValorProductoFacturaConComprobanteFiscal();
+
         //Almacena el costo en un ArrayList por si hay que eliminarlo luego.
         costosTMP.add(costoYCantidadProducto[0]);
         cantidadTMP.add(costoYCantidadProducto[1]);
@@ -876,95 +943,156 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.setBackground(new Color(204, 204, 255));
     }
 
+    private boolean clienteComprobantezFiscal() {
+        if (!panelVenta_botonFactuarConComprobante.isSelected()) {
+            String cedula = Logica.CamposTexto.Campo_extraerCodigo.getCode(panelVenta_textFieldCliente);
+            java.sql.ResultSet rs = DataBase.Facturacion.Clientes.Select.clienteCedula(cedula);
+            if (Logica.String.String_verificarStringNumero.ValidarString(cedula)) {
+                try {
+                    rs.next();
+                    String _tlfno = rs.getString("telefonoCliente") == null ? "" : (rs.getString("telefonoCliente")).replaceAll("\\D+", "");
+                    String _dirc = rs.getString("direccionCliente") == null ? "" : rs.getString("direccionCliente");
+                    String _rnc = rs.getString("RNC") == null ? "" : rs.getString("RNC");
+                    rs.close();
+                    if ((_tlfno.trim()).length() > 0
+                            && (_dirc.trim()).length() > 0
+                            && (_rnc.trim()).length() > 0) {
+                        return true;
+                    } else {
+                        Logica.Cuadros_Emergentes.alerta("Al usuario le falta: " + (_tlfno.length() <= 0 ? "\n-TELEFONO " : "")
+                                + (_dirc.length() <= 0 ? "\n-DIRECCION" : "")
+                                + (_rnc.length() <= 0 ? "\n-RNC" : ""));
+                        Logica.herramientas.procesoDeHistorial();
+                        Diseño.Facturacion.ventanas_bases.Ventana_base.PANELES[6].setVisible(true);
+                        ((panel_clientes) Diseño.Facturacion.ventanas_bases.Ventana_base.PANELES[6])
+                                .BuscarClienteDesdeFuera(cedula);
+                    }
+                } catch (SQLException e) {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
     //**************************************************************//
     //************************* Eventos ****************************//
     //**************************************************************//
-    private boolean Evento_procesosRealizarFactura() {
+    private boolean Evento_procesosRealizarFactura(String idFactura) {
         //Si correcto es true al finalizar el proceso de factura, mostrará y 
         //limpiará los campos.
         boolean correcto = false;
         if (Herencia_metodoEventoBotonGuardar(
                 panelVenta_radioCredito.isSelected()
                 ? panelVentaPanelDatosVentaCredito_textFieldInicial.getText()
-                : panelBaseCompraVenta_textFieldTotal.getText()
+                : (!panelVenta_botonFactuarConComprobante.isSelected() && !panelVentas_toggle_guardarCliente.isSelected())
+                        ? PonerValorProductoFacturaConComprobanteFiscal() + ""
+                        : panelBaseCompraVenta_textFieldTotal.getText()
         )) {
             //Este metodo es por si el usuario pone un cliente pero no le da a
             //'enter' para validar al cliente asi que se valida antes de crear la
             //factura, verifica si esta bien escrito y si el cliente existe.
             if (Evento_campoCliente()) {
-                if (panelVenta_radioContado.isSelected()) {
-                    //Se pasan los datos a la tabla de "facturaVenta"
-                    //************************************************
-                    if (DataBase.Facturacion.FacturaVenta.Venta.Insert.facturaVenta(new String[]{
-                        Logica.CamposTexto.Campo_extraerCodigo.getCode(
-                        panelVenta_textFieldCliente),
-                        panelBaseCompraVenta_textFieldFecha.getText(),
-                        panelBaseCompraVenta_textFieldTotal.getText(),
-                        panelVenta_textFieldSumatoriaDeCostos.getText()
-                    })) {
-                        //Verifico si la factura es con un cliente sin guardar
-                        if (panelVentas_toggle_guardarCliente.isSelected()
-                                && !(panelVenta_textFieldQuickCliente.getText()
-                                        .equals("CLIENTE"))) {
-                            DataBase.Facturacion.QuickClient.Insert.QuickClient(
-                                    Integer.toString(
-                                            DataBase.Facturacion.FacturaVenta.Venta.Select
-                                                    .ultimoId()),
-                                    panelVenta_textFieldQuickCliente.getText());
+                //  SI SE A SELECCIONADO UNA FACTURA CON COMPROBANTE FISCAL, SE
+                //  SE DEVE VALIDAR QUE EL CLINTE QUE A TENGA DIRECCION, TELEFONO Y RNC
+                if (clienteComprobantezFiscal()) {
+                    if (panelVenta_radioContado.isSelected()) {
+                        //Se pasan los datos a la tabla de "facturaVenta"
+                        //************************************************
+                        if (DataBase.Facturacion.FacturaVenta.Venta.Insert.facturaVenta(new String[]{
+                            Logica.CamposTexto.Campo_extraerCodigo.getCode(
+                            panelVenta_textFieldCliente),
+                            panelBaseCompraVenta_textFieldFecha.getText(),
+                            panelBaseCompraVenta_textFieldTotal.getText(),
+                            panelVenta_textFieldSumatoriaDeCostos.getText()
+                        })) {
+                            //Verifico si la factura es con un cliente sin guardar
+                            if (panelVentas_toggle_guardarCliente.isSelected()
+                                    && !(panelVenta_textFieldQuickCliente.getText()
+                                            .equals("CLIENTE"))) {
+                                DataBase.Facturacion.QuickClient.Insert.QuickClient(
+                                        Integer.toString(
+                                                DataBase.Facturacion.FacturaVenta.Venta.Select
+                                                        .ultimoId()),
+                                        panelVenta_textFieldQuickCliente.getText());
 
+                            }
+                            //Se pasan los datos a la tabla de "detalleVenta"
+                            //************************************************
+                            for (int i = 0; i < herencia_model.getRowCount(); i++) {
+                                DataBase.Facturacion.FacturaVenta.Detalle.Insert.detalleVenta(
+                                        new String[]{
+                                            (String) herencia_model.getValueAt(i, 0),
+                                            (String) herencia_model.getValueAt(i, 3),
+                                            Integer.toString(costosTMP.get(i)),
+                                            (String) herencia_model.getValueAt(i, 2)
+                                        });
+                            }
+                            setNumeroFactura();
+                            correcto = true;
                         }
-                        //Se pasan los datos a la tabla de "detalleVenta"
+                    } else {
+                        //Se pasan los datos a la tabla de "facturaVentaCredito"
                         //************************************************
-                        for (int i = 0; i < herencia_model.getRowCount(); i++) {
-                            DataBase.Facturacion.FacturaVenta.Detalle.Insert.detalleVenta(
-                                    new String[]{
-                                        (String) herencia_model.getValueAt(i, 0),
-                                        (String) herencia_model.getValueAt(i, 3),
-                                        Integer.toString(costosTMP.get(i)),
-                                        (String) herencia_model.getValueAt(i, 2)
-                                    });
+                        if (DataBase.Financiera.FacturaVentaCredito.VentaCredito.Insert.facturaVentaCredito(new String[]{
+                            Logica.CamposTexto.Campo_extraerCodigo.getCode(panelVenta_textFieldCliente),
+                            panelBaseCompraVenta_textFieldFecha.getText(),
+                            panelBaseCompraVenta_textFieldTotal.getText(),
+                            panelVentaPanelDatosVentaCredito_textFieldInicial.getText(),
+                            panelVentaPanelDatosVentaCredito_textFieldCuotas.getText(),
+                            panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.getText(),
+                            panelVentaPanelDatosVentaCredito_textFieldGananciaPagos.getText()
+                        })) {
+                            //Se pasan los datos a la tabla de "detalleVentaCredito"
+                            //************************************************
+                            for (int i = 0; i < herencia_model.getRowCount(); i++) {
+                                DataBase.Financiera.FacturaVentaCredito.Detalle.Insert.detalleVentaCredito(new String[]{
+                                    panelVenta_textFieldCodigo.getText(),
+                                    (String) herencia_model.getValueAt(i, 0),
+                                    Integer.toString(costosTMP.get(i))
+                                });
+                            }
+                            //Se aumenta el costo de las facturas activas en la calle
+                            DataBase.Financiera.DatosFinanciera.Update.CambiarCostoFacturasActivas(
+                                    Integer.parseInt(panelVenta_textFieldSumatoriaDeCostos
+                                            .getText())
+                                    - Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldInicial
+                                            .getText()),
+                                    true);
+                            //Actualizar y limpiar la tabla de 'Clientes con facturas de ventas activas'
+                            Diseño.Financiera.paneles_pantallaPrincipal.panel_ClientesPendientes
+                                    .actualizarLabelsTotalTacturasActivasYCostos();
+                            setNumeroFacturaCredito();
+                            correcto = true;
                         }
-                        setNumeroFactura();
-                        correcto = true;
-                    }
-                } else {
-                    //Se pasan los datos a la tabla de "facturaVentaCredito"
-                    //************************************************
-                    if (DataBase.Financiera.FacturaVentaCredito.VentaCredito.Insert.facturaVentaCredito(new String[]{
-                        Logica.CamposTexto.Campo_extraerCodigo.getCode(panelVenta_textFieldCliente),
-                        panelBaseCompraVenta_textFieldFecha.getText(),
-                        panelBaseCompraVenta_textFieldTotal.getText(),
-                        panelVentaPanelDatosVentaCredito_textFieldInicial.getText(),
-                        panelVentaPanelDatosVentaCredito_textFieldCuotas.getText(),
-                        panelVentaPanelDatosVentaCredito_textFieldNumeroDeCuotas.getText(),
-                        panelVentaPanelDatosVentaCredito_textFieldGananciaPagos.getText()
-                    })) {
-                        //Se pasan los datos a la tabla de "detalleVentaCredito"
-                        //************************************************
-                        for (int i = 0; i < herencia_model.getRowCount(); i++) {
-                            DataBase.Financiera.FacturaVentaCredito.Detalle.Insert.detalleVentaCredito(new String[]{
-                                panelVenta_textFieldCodigo.getText(),
-                                (String) herencia_model.getValueAt(i, 0),
-                                Integer.toString(costosTMP.get(i))
-                            });
-                        }
-                        //Se aumenta el costo de las facturas activas en la calle
-                        DataBase.Financiera.DatosFinanciera.Update.CambiarCostoFacturasActivas(
-                                Integer.parseInt(panelVenta_textFieldSumatoriaDeCostos
-                                        .getText())
-                                - Integer.parseInt(panelVentaPanelDatosVentaCredito_textFieldInicial
-                                        .getText()),
-                                true);
-                        //Actualizar y limpiar la tabla de 'Clientes con facturas de ventas activas'
-                        Diseño.Financiera.paneles_pantallaPrincipal.panel_ClientesPendientes
-                                .actualizarLabelsTotalTacturasActivasYCostos();
-                        setNumeroFacturaCredito();
-                        correcto = true;
                     }
                 }
             }
         }
+
+        if (correcto && !panelVenta_botonFactuarConComprobante.isSelected() && !panelVentas_toggle_guardarCliente.isSelected()) {
+            //Buscar el NCF para asignarselo a esa factura
+            try (java.sql.ResultSet rs = DataBase.Facturacion.ncfnos.Select.NcsNOs()) {
+                rs.next();
+                NCF = rs.getString("ncfActual");
+                DataBase.Facturacion.FacturasImpuestos.Insert.FacturaImpuestos(new Object[]{idFactura, NCF}, panelVenta_radioContado.isSelected());
+                DataBase.Facturacion.ncfnos.Update.NcfNOs(Integer.toString((Integer.parseInt(NCF) + 1)));
+            } catch (java.sql.SQLException e) {
+                System.err.println(e);
+            }
+        }
+
         return correcto;
+    }
+
+    /**
+     * SI LA FACTURA ES CON COMPROBANTE FISCAL, SE LE PONE AL LABEL QUE MUESTRA
+     * EL TOTAL EL TOTAL LA SUMATORIA CON EL 18% DEL IMPUESTO.
+     */
+    private int PonerValorProductoFacturaConComprobanteFiscal() {
+        int totalMasImpuesto = (int) Math.round(Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText()) + (Integer.parseInt(panelBaseCompraVenta_textFieldTotal.getText()) * 0.18));
+        label_totalConImpuestos.setText("+ 18% => " + totalMasImpuesto);
+        return totalMasImpuesto;
     }
 
     //**************************************************************//
@@ -985,6 +1113,12 @@ public class panel_ventas extends Diseño.Facturacion.paneles_base.panelBase_Com
         panelVentas_toggle_guardarCliente.setSelected(true);
         panelVenta_textFieldSumatoriaDeCostos.setText("0");
         costosTMP.clear();
+        panelVenta_botonFactuarConComprobante.setVisible(false);
+        panelVenta_botonFactuarConComprobante.setSelected(true);
+        panelVenta_botonFactuarConComprobante.setText("FACTURA SIN COMPROBANTE FISCAL");
+        panelVenta_botonFactuarConComprobante.setBackground(new java.awt.Color(204, 204, 204));
+        label_totalConImpuestos.setVisible(false);
+        PonerValorProductoFacturaConComprobanteFiscal();
         limpiarDatosFacturaVentaCredito(true);
     }
 }

@@ -14,7 +14,8 @@ public class Update {
                     + " set nombreCliente = '" + nuevosDatos[1] + "',"
                     + " apellidoCliente = '" + nuevosDatos[2] + "',"
                     + " telefonoCliente = '" + nuevosDatos[3] + "',"
-                    + " direccionCliente = '" + nuevosDatos[4] + "'"
+                    + " direccionCliente = '" + nuevosDatos[4] + "',"
+                    + " RNC = '" + nuevosDatos[5] + "'"
                     + " where cedulaCliente = '" + nuevosDatos[0] + "'");
             stm.executeUpdate();
         } catch (SQLException ex) {

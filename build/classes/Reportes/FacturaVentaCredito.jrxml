@@ -12,6 +12,7 @@
 	<parameter name="telefono1" class="java.lang.String"/>
 	<parameter name="telefono2" class="java.lang.String"/>
 	<parameter name="Rnc" class="java.lang.String"/>
+	<parameter name="NCF" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      cliente.`idCliente` AS cliente_idCliente,
@@ -245,6 +246,13 @@ WHERE facturaventacredito.idVentaCredito = $P!{idFactura}]]>
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Rnc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-19" y="38" width="121" height="20" forecolor="#FFFFFF" uuid="116e9c39-961d-4b0b-8c5a-6bc7f112b732"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NCF}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

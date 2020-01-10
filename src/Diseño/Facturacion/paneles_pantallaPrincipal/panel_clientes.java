@@ -147,6 +147,7 @@ public class panel_clientes extends Diseño.Facturacion.paneles_base.panelBase_i
                     panelBaseInventarioClientesDistribuidores_tablaClientes.getModel().setValueAt(rs.getString("apellidoCliente"), rs.getRow() - 1, 2);
                     innerAl.add(rs.getString("telefonoCliente"));
                     innerAl.add(rs.getString("direccionCliente"));
+                    innerAl.add(rs.getString("RNC"));
                     al.add(innerAl);
                     i++;
                 }
@@ -262,7 +263,8 @@ public class panel_clientes extends Diseño.Facturacion.paneles_base.panelBase_i
                     Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldNombre.getText(),
                     Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldApellido.getText(),
                     Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldContacto.getText(),
-                    Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldDireccion.getText()})) {
+                    Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldDireccion.getText(),
+                    Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldRNC.getText()})) {
                     panel_nuevoCliente.eventoArticuloClienteDistribuidor(false);
                     llenarTablaTodosDatos();
                     //Llama un metodo que vuelve a cargar el  AutoCompleter en el campo de clientes.
@@ -297,12 +299,20 @@ public class panel_clientes extends Diseño.Facturacion.paneles_base.panelBase_i
                     panel_nuevoCliente.panelNuevoCliente_textFieldApellido.getText(),
                     panel_nuevoCliente.panelNuevoCliente_textFieldContacto.getText(),
                     panel_nuevoCliente.panelNuevoCliente_textFieldDireccion.getText(),
-                    panel_nuevoCliente.panelNuevoCliente_textAreaNotas.getText()});
+                    panel_nuevoCliente.panelNuevoCliente_textFieldRNC.getText()});
                 actualizarTablaAlModificarOEliminar();
             }
         } else {
             Logica.Cuadros_Emergentes.alerta("Todos los campos marcados con (*)"
                     + " son obligatorios.");
         }
+    }
+
+    //  BUSCAR UN CLIENTE DESDE OTRA CLASE
+    public void BuscarClienteDesdeFuera(String cedula) {
+        java.sql.ResultSet rs;
+        eliminarAgregarFilas();
+        rs = DataBase.Facturacion.Clientes.Select.clienteCedula(cedula);
+        actualizarLlenarTabla(rs);
     }
 }

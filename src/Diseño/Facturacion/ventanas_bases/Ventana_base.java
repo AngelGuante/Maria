@@ -21,6 +21,7 @@ import Diseño.Financiera.paneles_historiales.panel_historialEnvargos;
 import Diseño.Financiera.paneles_historiales.panel_historialPagos;
 import Diseño.Financiera.paneles_historiales.panel_historialSaldos;
 import Diseño.Facturacion.paneles_pantallaPrincipal.Panel_reportesGanancias;
+import Diseño.Facturacion.paneles_programador.panel_FacturasRNC;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
@@ -50,7 +51,8 @@ public class Ventana_base extends javax.swing.JFrame {
         new panel_ClientesPendientes(), //PANEL CLIENTES PENDIENTES - 17 
         new panel_historialPagos(), //HISTORIAL DE PAGOS - 18
         new panel_historialSaldos(), //HISTORIAL DE SALDOS - 19
-        new panel_historialEnvargos() //HISTORIAL DE ENVARGOS - 20
+        new panel_historialEnvargos(), //HISTORIAL DE ENVARGOS - 20
+        new panel_FacturasRNC() //FACTURAS RNC - 21
     };
 
     @SuppressWarnings({"OverridableMethodCallInConstructor", "UseSpecificCatch"})

@@ -13,6 +13,7 @@
 	<parameter name="telefono1" class="java.lang.String"/>
 	<parameter name="telefono2" class="java.lang.String"/>
 	<parameter name="Rnc" class="java.lang.String"/>
+	<parameter name="NCF" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      (detalleventa.`cantidadProductoVenta`*detalleventa.`precioProductoIndividualVenta`) AS totalProducto,
@@ -74,7 +75,7 @@ WHERE
 				<textElement textAlignment="Right">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[ - Factura de VENTA -]]></text>
+				<text><![CDATA[ - VENTA -]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="526" y="10" width="46" height="20" uuid="892b8448-a1d7-467e-a5f9-f730e87cc3c8"/>
@@ -121,6 +122,20 @@ WHERE
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Rnc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-19" y="59" width="501" height="20" uuid="75d3e230-b90e-4748-b18a-d5a1c4118d5a"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DOCUMENTO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="-19" y="39" width="121" height="20" forecolor="#FFFFFF" uuid="88d41fe4-b5b9-433d-b6d2-cd62cd35915f"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NCF}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -274,35 +289,31 @@ WHERE
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="26" splitType="Stretch">
+		<band height="47" splitType="Stretch">
 			<staticText>
-				<reportElement x="419" y="1" width="76" height="25" uuid="535c7720-beda-4217-831a-02876a0b7cf6"/>
+				<reportElement x="419" y="23" width="76" height="16" uuid="535c7720-beda-4217-831a-02876a0b7cf6"/>
 				<textElement>
-					<font size="14" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL =>]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="495" y="0" width="64" height="26" uuid="d3288d20-2f71-4675-9c58-3d13dfcf2078"/>
+				<reportElement x="495" y="23" width="64" height="16" uuid="d3288d20-2f71-4675-9c58-3d13dfcf2078"/>
 				<textElement textAlignment="Right">
-					<font size="14" isBold="true"/>
+					<font size="11" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{facturaventa_valorFacturaVenta}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="0" width="560" height="1" uuid="9f50ee6b-fa0e-47de-8a30-0835f247ad0e"/>
 			</line>
-		</band>
-	</columnFooter>
-	<pageFooter>
-		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="366" height="20" uuid="229da169-c7e5-465d-9897-e6c86d623cda"/>
+				<reportElement x="0" y="19" width="366" height="20" uuid="229da169-c7e5-465d-9897-e6c86d623cda"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[REVISE SU MERCANCÍA, NO ACEPTAMOS DEVOLUCIONES.]]></text>
 			</staticText>
 		</band>
-	</pageFooter>
+	</columnFooter>
 </jasperReport>

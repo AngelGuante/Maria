@@ -11,7 +11,6 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
         initComponents();
         modificarComponentesPanelPadre();
         detallesComponentes();
-        panelNuevoCliente_botonHistorialDeFacturasCliente.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -26,12 +25,10 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
         panelNuevoCliente_labelApellido = new javax.swing.JLabel();
         panelNuevoCliente_labelContacto = new javax.swing.JLabel();
         panelNuevoCliente_textFieldContacto = new javax.swing.JTextField();
-        panelNuevoCliente_botonHistorialDeFacturasCliente = new javax.swing.JButton();
         panelNuevoCliente_labelDireccion = new javax.swing.JLabel();
         panelNuevoCliente_textFieldDireccion = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        panelNuevoCliente_textAreaNotas = new javax.swing.JTextArea();
-        panelNuevoCliente_labelNotas = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        panelNuevoCliente_textFieldRNC = new javax.swing.JTextField();
 
         panelNuevoCliente_labelCedula.setText("Cedula(*)");
 
@@ -78,25 +75,15 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
             }
         });
 
-        panelNuevoCliente_botonHistorialDeFacturasCliente.setText("Ver historial de facturas de este cliente");
-        panelNuevoCliente_botonHistorialDeFacturasCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                panelNuevoCliente_botonHistorialDeFacturasClienteActionPerformed(evt);
-            }
-        });
-
         panelNuevoCliente_labelDireccion.setText("Direccion");
 
         panelNuevoCliente_textFieldDireccion.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         panelNuevoCliente_textFieldDireccion.setForeground(new java.awt.Color(0, 102, 204));
 
-        panelNuevoCliente_textAreaNotas.setColumns(20);
-        panelNuevoCliente_textAreaNotas.setForeground(new java.awt.Color(0, 102, 204));
-        panelNuevoCliente_textAreaNotas.setRows(5);
-        jScrollPane1.setViewportView(panelNuevoCliente_textAreaNotas);
+        jLabel1.setText("RNC");
 
-        panelNuevoCliente_labelNotas.setText("Notas");
-        panelNuevoCliente_labelNotas.setToolTipText("");
+        panelNuevoCliente_textFieldRNC.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        panelNuevoCliente_textFieldRNC.setForeground(new java.awt.Color(0, 102, 204));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,17 +103,16 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(panelNuevoCliente_labelApellido)
                                 .addGap(0, 81, Short.MAX_VALUE))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelNuevoCliente_labelCedula)
                             .addComponent(panelNuevoCliente_textFieldCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(panelNuevoCliente_labelContacto)
                             .addComponent(panelNuevoCliente_textFieldContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelNuevoCliente_botonHistorialDeFacturasCliente)
                             .addComponent(panelNuevoCliente_labelDireccion)
-                            .addComponent(panelNuevoCliente_labelNotas))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelNuevoCliente_textFieldRNC))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -154,20 +140,13 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
                 .addComponent(panelNuevoCliente_labelDireccion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelNuevoCliente_textFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelNuevoCliente_labelNotas)
-                .addGap(1, 1, 1)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelNuevoCliente_botonHistorialDeFacturasCliente)
-                .addGap(76, 76, 76))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelNuevoCliente_textFieldRNC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    //Muestra el historial del cliente seleccionado.
-    private void panelNuevoCliente_botonHistorialDeFacturasClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelNuevoCliente_botonHistorialDeFacturasClienteActionPerformed
-        Logica.herramientas.procesoDeHistorial();
-    }//GEN-LAST:event_panelNuevoCliente_botonHistorialDeFacturasClienteActionPerformed
 
     private void panelNuevoCliente_textFieldCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelNuevoCliente_textFieldCedulaActionPerformed
         panelNuevoCliente_textFieldNombre.requestFocus();
@@ -191,20 +170,18 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JButton panelNuevoCliente_botonHistorialDeFacturasCliente;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel panelNuevoCliente_labelApellido;
     private javax.swing.JLabel panelNuevoCliente_labelCedula;
     private javax.swing.JLabel panelNuevoCliente_labelContacto;
     private javax.swing.JLabel panelNuevoCliente_labelDireccion;
     private javax.swing.JLabel panelNuevoCliente_labelNombre;
-    private javax.swing.JLabel panelNuevoCliente_labelNotas;
-    public static javax.swing.JTextArea panelNuevoCliente_textAreaNotas;
     public static javax.swing.JTextField panelNuevoCliente_textFieldApellido;
     public static javax.swing.JTextField panelNuevoCliente_textFieldCedula;
     public static javax.swing.JTextField panelNuevoCliente_textFieldContacto;
     public static javax.swing.JTextField panelNuevoCliente_textFieldDireccion;
     public static javax.swing.JTextField panelNuevoCliente_textFieldNombre;
+    public static javax.swing.JTextField panelNuevoCliente_textFieldRNC;
     // End of variables declaration//GEN-END:variables
 
     //*************************************************************//
@@ -221,10 +198,6 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
     //***************** Configurar componentes ********************//
     //*************************************************************//
     private void detallesComponentes() {
-        panelNuevoCliente_labelNotas.setVisible(false);
-        jScrollPane1.setVisible(false);
-        panelNuevoCliente_botonHistorialDeFacturasCliente.setVisible(false);
-
         //SOMBREAR campos de texto
         panelNuevoCliente_textFieldCedula.addFocusListener(new Logica.CamposTexto.Campo_seleccionarTodoTexto());
         panelNuevoCliente_textFieldNombre.addFocusListener(new Logica.CamposTexto.Campo_seleccionarTodoTexto());
@@ -236,6 +209,7 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
         Campo_mayuscula.campoTextoMayuscula(panelNuevoCliente_textFieldNombre);
         Campo_mayuscula.campoTextoMayuscula(panelNuevoCliente_textFieldApellido);
         Campo_mayuscula.campoTextoMayuscula(panelNuevoCliente_textFieldDireccion);
+        Campo_mayuscula.campoTextoMayuscula(panelNuevoCliente_textFieldRNC);
 
         //TIPO campo de texto
         Campo_tipoNumero.campoTextoTipoNumero(panelNuevoCliente_textFieldCedula);
@@ -249,7 +223,7 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
         Campo_limiteDigitosCampo.SetCampoTextoLimite(panelNuevoCliente_textFieldApellido, 19);
         Campo_limiteDigitosCampo.SetCampoTextoLimite(panelNuevoCliente_textFieldContacto, 14);
         Campo_limiteDigitosCampo.SetCampoTextoLimite(panelNuevoCliente_textFieldDireccion, 69);
-        Logica.herramientas.campoTextoAreaTamaño(panelNuevoCliente_textAreaNotas, 99);
+        Campo_limiteDigitosCampo.SetCampoTextoLimite(panelNuevoCliente_textFieldRNC, 45);
     }
 
     /*
@@ -265,8 +239,7 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
                 panel_nuevoCliente.panelNuevoCliente_textFieldApellido.setText("");
                 panel_nuevoCliente.panelNuevoCliente_textFieldContacto.setText("");
                 panel_nuevoCliente.panelNuevoCliente_textFieldDireccion.setText("");
-                panel_nuevoCliente.panelNuevoCliente_textAreaNotas.setText("");
-                panel_nuevoCliente.panelNuevoCliente_botonHistorialDeFacturasCliente.setVisible(false);
+                panel_nuevoCliente.panelNuevoCliente_textFieldRNC.setText("");
                 Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldCedula.setEditable(true);
                 Diseño.Facturacion.paneles_base.panelBase_inventarioClientesDistribuidores.reestablecerComponentes();
             }
@@ -276,8 +249,7 @@ public class panel_nuevoCliente extends Diseño.Facturacion.paneles_base.panelBa
             panel_nuevoCliente.panelNuevoCliente_textFieldApellido.setText("");
             panel_nuevoCliente.panelNuevoCliente_textFieldContacto.setText("");
             panel_nuevoCliente.panelNuevoCliente_textFieldDireccion.setText("");
-            panel_nuevoCliente.panelNuevoCliente_textAreaNotas.setText("");
-            panel_nuevoCliente.panelNuevoCliente_botonHistorialDeFacturasCliente.setVisible(false);
+            panel_nuevoCliente.panelNuevoCliente_textFieldRNC.setText("");
             Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldCedula.setEditable(true);
             Diseño.Facturacion.paneles_base.panelBase_inventarioClientesDistribuidores.reestablecerComponentes();
         }

@@ -1090,9 +1090,7 @@ public class panelBase_inventarioClientesDistribuidores extends panelBase {
     //Evento para la tala de clientes
     private void panelBaseInventarioClientesDistribuidores_tablaClientesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBaseInventarioClientesDistribuidores_tablaClientesMouseReleased
         if (Logica.tablas.Tabla_verificarFilaSeleccionada.rowSelectedNotNull(panelBaseInventarioClientesDistribuidores_tablaClientes)) {
-            Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_botonHistorialDeFacturasCliente.setVisible(true);
             Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldCedula.setEditable(false);
-            Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_botonHistorialDeFacturasCliente.setVisible(true);
             eventoClickTabla();
             //Lleno los campos de texto y de area.
             Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldCedula.setText(
@@ -1108,6 +1106,7 @@ public class panelBase_inventarioClientesDistribuidores extends panelBase {
             java.util.ArrayList innerAl = (java.util.ArrayList) al.get(panelBaseInventarioClientesDistribuidores_tablaClientes.getSelectedRow());
             Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldContacto.setText(((String) innerAl.get(0)));
             Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldDireccion.setText(((String) innerAl.get(1)));
+            Diseño.Facturacion.Paneles_nuevo.panel_nuevoCliente.panelNuevoCliente_textFieldRNC.setText(((String) innerAl.get(2)));
         }
     }//GEN-LAST:event_panelBaseInventarioClientesDistribuidores_tablaClientesMouseReleased
 

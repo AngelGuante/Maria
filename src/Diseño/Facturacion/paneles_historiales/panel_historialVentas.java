@@ -10,6 +10,8 @@ public class panel_historialVentas extends Diseño.Facturacion.paneles_base.pane
     private static javax.swing.JScrollPane pane2;
     private static javax.swing.table.DefaultTableModel model2;
 
+    private static int variable = 1;
+
     public panel_historialVentas() {
         initComponents();
         detallesComponentes();
@@ -142,11 +144,11 @@ public class panel_historialVentas extends Diseño.Facturacion.paneles_base.pane
                         .addComponent(panelBaseHistorialFacturas_textFieldBuscadorVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelDatosDespuesDeVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton1)
                                 .addGap(101, 101, 101)
-                                .addComponent(panelBaseHistorialFacturas_textFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(panelDatosDespuesDeVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(panelBaseHistorialFacturas_textFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -188,8 +190,20 @@ public class panel_historialVentas extends Diseño.Facturacion.paneles_base.pane
     }//GEN-LAST:event_panelHistorialFacturas_botonEliminarFacturaActionPerformed
 
     private void panelHistorialFacturas_botonImprimirFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_panelHistorialFacturas_botonImprimirFacturaActionPerformed
+        java.sql.ResultSet rs = DataBase.Facturacion.FacturasImpuestos.Select.NcfFactura((String) tabla1.getValueAt(tabla1.getSelectedRow(), 0), true);
+
+        String NCF = "";
+        try {
+            rs.next();
+            NCF = rs.getString("ncf");
+            rs.close();
+        } catch (java.sql.SQLException e) {
+            System.err.println(e);
+        }
+
         java.util.Map<String, Object> parametros = new java.util.HashMap<>();
         parametros.put("idFactura", (String) tabla1.getValueAt(tabla1.getSelectedRow(), 0));
+        parametros.put("NCF", NCF.length() > 0 ? ("NCF: B0" + NCF) : "");
         Logica.Reportes.Reporte_generarConDB.ReportesConDB(
                 parametros,
                 "Facturacion\\FacturaVenta",
